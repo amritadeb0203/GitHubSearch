@@ -1,0 +1,40 @@
+﻿@model GitHubSearch.Models.RepoDetailsModel
+
+@{
+    ViewBag.Title = "RepoDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<h2>RepoDetails</h2>
+<br />
+
+@if (Model.IsReadMeAvailable)
+{
+
+    <a target="_blank" href="@Model.ReadmeURL">README</a>
+
+}
+<br /><br />
+<div class="col-md-6">
+    <table class="table table-bordered table-striped table table-hover table-responsive table-condensed">
+        <tbody>
+            @foreach (var repo in Model.CurrentRepoDetails)
+            {
+                <tr>
+                    @*@Html.Label(repo.Key.ToString(), htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.Label(repo.Value.ToString(), htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <td width="20%">
+                        @Html.Label(repo.Key) @*, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    </td>
+                    <td>
+                        @Html.Label(repo.Value) @*, htmlAttributes: new { @class = "control-label col-md-3" })*@
+                    </td>
+                </tr>
+               
+            }  
+        </tbody>
+    </table>
+   
+</div>
+

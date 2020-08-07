@@ -1,0 +1,95 @@
+﻿@model GitHubSearch.Models.GitHubRepoModel
+
+@{
+    ViewBag.Title = "SearchRepoView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/bootstrap.min.js"></script>
+<h2>Search Repository</h2>
+<div class="row">
+    <div class="col-md-4">
+        @using (Html.BeginForm("SearchRepo", "SearchRepository"))
+        {
+            <div class="form-group">
+                @Html.TextBoxFor(x => x.SearchString)
+            </div>
+            <span class="form-group">
+                <button class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
+            </span>
+            <div>
+                @Html.ValidationMessageFor(m => m.SearchString, "", new { @class = "text-danger" })
+            </div>
+        }
+    </div>
+</div>
+<br />
+<p>
+    <div class="container">
+        <div class="col-md-4">
+            <table class="table table-bordered table-striped table table-hover table-responsive table-condensed">
+                <tbody>
+                    @foreach (var repo in Model.ListOfRepositories)
+                    {
+                        <tr>
+                            <td> @*@Html.ActionLink(repo, "SearchRepo", Model, repo)*@
+                                
+                                <input type="button"
+                                       value="@repo"
+                                       onclick="location.href='@Url.Action("RepoDetails", "SearchRepository" ,
+                                                              new {key = repo})'" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</p>
+@*@using (Html.BeginForm("SearchRepository","Search")) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.SearchString, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SearchString, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SearchString, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.CurrentRepo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CurrentRepo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CurrentRepo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsReadMeAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsReadMeAvailable)
+                    @Html.ValidationMessageFor(model => model.IsReadMeAvailable, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Search" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }*@
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
