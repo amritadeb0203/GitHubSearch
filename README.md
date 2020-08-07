@@ -1,2 +1,2 @@
-# repo1
+# GitHubSearch
 My first repository
