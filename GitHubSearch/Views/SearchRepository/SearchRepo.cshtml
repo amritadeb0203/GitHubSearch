@@ -37,13 +37,13 @@
                                 <td>
                                     @if (repo.Equals(Model.CurrentRepo))
                                     {
-                                        <input type="button" width="100%" class="btn btn-success" value="@repo"
+                                        <input type="button" class="btn btn-success" value="@repo"
                                                onclick="location.href='@Url.Action("RepoDetails", "SearchRepository", new { key = repo })'" />
 
                                     }
                                     else
                                     {
-                                        <input type="button" width="100%" class="btn btn-default" value="@repo"
+                                        <input type="button" class="btn btn-default" value="@repo"
                                                onclick="location.href='@Url.Action("RepoDetails", "SearchRepository", new { key = repo })'" />
                                     }
                                 </td>
