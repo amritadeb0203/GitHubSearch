@@ -33,7 +33,10 @@ namespace GitHubSearch.Abstraction
                 foreach (var Key in tagArray)
                 {
                     string Value = childToken[Key].Value<string>();
-                    Console.WriteLine(Key + "  " + Value);
+                    //Console.WriteLine(Key + "  " + Value);
+                    if (Value == null) //For missing entries in the Jason
+                        Value = string.Empty;
+
                     currDetails.Add(Key, Value);
                 }
 

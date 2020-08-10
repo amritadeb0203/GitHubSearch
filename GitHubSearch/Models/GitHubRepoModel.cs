@@ -11,7 +11,13 @@ namespace GitHubSearch.Models
         public GitHubRepoModel()
         {
             this.ListOfRepositories = new List<string>();
-            this.RepoDetailsMap = new Dictionary<string, Dictionary<string, string>>();
+
+            this.CurrentRepoDetails = new Dictionary<string, string>();
+            this.CurrentRepo = string.Empty;
+            this.IsReadMeAvailable = false;
+            this.ReadmeURL = "README.md file not available !!";
+
+            IsSearchResultView = true;
         }
 
         [Required]
@@ -20,7 +26,17 @@ namespace GitHubSearch.Models
 
         public List<string> ListOfRepositories { get; set; }
 
-        public Dictionary<string, Dictionary<string, string>> RepoDetailsMap { get; set; }
+        /////////////////////////////////////////////
+        ///
+        public Dictionary<string, string> CurrentRepoDetails { get; set; }
+
+        public string CurrentRepo { get; set; }
+
+        public bool IsReadMeAvailable { get; set; }
+
+        public string ReadmeURL { get; set; }
+
+        public bool IsSearchResultView;
 
     }
 }

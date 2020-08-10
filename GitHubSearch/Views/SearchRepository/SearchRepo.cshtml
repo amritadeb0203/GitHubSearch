@@ -17,33 +17,71 @@
                 <button class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
             </span>
             <div>
-                @Html.ValidationMessageFor(m => m.SearchString, "", new { @class = "text-danger" })
+                @if (Model.IsSearchResultView)
+                {
+                    @Html.ValidationMessageFor(m => m.SearchString, "", new { @class = "text-danger" })
+                }
             </div>
         }
     </div>
 </div>
 <br />
 <p>
-    <div class="container">
+    <div class="container">     
         <div class="col-md-4">
-            <table class="table table-bordered table-striped table table-hover table-responsive table-condensed">
-                <tbody>
-                    @foreach (var repo in Model.ListOfRepositories)
-                    {
+                <table class="table table-bordered table-striped table table-hover table-responsive table-condensed">
+                    <tbody>
+                        @foreach (var repo in Model.ListOfRepositories)
+                        {
+                            <tr>
+                                <td>
+                                    @if (repo.Equals(Model.CurrentRepo))
+                                    {
+                                        <input type="button" width="100%" class="btn btn-success" value="@repo"
+                                               onclick="location.href='@Url.Action("RepoDetails", "SearchRepository", new { key = repo })'" />
+
+                                    }
+                                    else
+                                    {
+                                        <input type="button" width="100%" class="btn btn-default" value="@repo"
+                                               onclick="location.href='@Url.Action("RepoDetails", "SearchRepository", new { key = repo })'" />
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        <div class="col-md-6">
+            @if (!Model.IsSearchResultView)
+            {
+                <table class="table table-bordered table-striped table table-hover table-responsive table-condensed">
+                    <tbody>
+                        @foreach (var repo in Model.CurrentRepoDetails)
+                        {
+                            <tr>
+                                <td width="20%">
+                                    @Html.Label(repo.Key)
+                                </td>
+                                <td>
+                                    @Html.Label(repo.Value)
+                                </td>
+                            </tr>
+
+                        }
                         <tr>
-                            <td> @*@Html.ActionLink(repo, "SearchRepo", Model, repo)*@
-                                
-                                <input type="button"
-                                       value="@repo"
-                                       onclick="location.href='@Url.Action("RepoDetails", "SearchRepository" ,
-                                                              new {key = repo})'" />
+                            <td>
+                                @if (Model.IsReadMeAvailable)
+                                {
+                                    <a target="_blank" href="@Model.ReadmeURL">README</a>
+                                }
                             </td>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
+            </div>
         </div>
-    </div>
 </p>
 @*@using (Html.BeginForm("SearchRepository","Search")) 
 {

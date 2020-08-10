@@ -24,7 +24,8 @@ namespace GitHubSearch.App_Start
             container.Register<IConfig, Config>();
             container.Register<IConverter, JsonConverter>();
             container.Register<IWebClient, RestWebClient>();
-            container.Register<IGitHubServices<GitHubRepoModel>, GitHubService>();
+            container.Register<IGitHubServices, GitHubService>();
+            container.Register<AppModelData>(Lifestyle.Singleton);
             container.Verify();
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
